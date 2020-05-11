@@ -1,7 +1,37 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <title>Rock, Paper, Scissors!</title>
+        <!-- <link rel="stylesheet" href="../static/main.css"> -->
+        <link rel="stylesheet" href="../static/all.min.css">
+        <link rel="stylesheet" href="../static/main.css">
+
+    </head>
     <body>
+        <div class="heading">
+            <h1 id="me">Player</h1>
+            <h1 if="comp">Computer</h1>
+        </div>
         
+        <div class="score">
+            <h1 class="myScore"></h1>
+            <h1 class="compScore"></h1>
+        </div>
+        <div class="choice">
+            <button class="rock" value="rock">
+                <i class="far fa-hand-rock"></i>
+            </button>
+            <button class="paper" value="paper">
+                <i class="far fa-hand-paper"></i>
+            </button>
+            <button class="scissors" value="scissors">
+                <i class="far fa-hand-scissors"></i>
+            </button>
+        </div>
+        <h2 class="result"></h2>
+        <h1 class="winner"></h1>
+        <input id="restartSettings" type="button" value="Restart" onclick="restart()" />
+
         <script>
             function computerPlay() {
                 let choices = ["Rock", "Paper", "Scissors"];
@@ -58,43 +88,65 @@
                 }
             }
 
-            function game() {
-                let myscore = 0;
-                let computerscore = 0;
-                for(let i = 0; i < 5; i++) {
-                    let playerSelection = prompt("Rock, Paper or Scissors?");
+            const myScoreLabel = document.querySelector('.myScore');
+            const compScoreLabel = document.querySelector('.compScore');
+            const resultLabel = document.querySelector('.result');
+            const winnerLabel = document.querySelector('.winner');
+            let myscore = 0;
+            let computerscore = 0;
+            myScoreLabel.textContent = myscore;
+            compScoreLabel.textContent = computerscore;
+            resultLabel.textContent = "";
+            winnerLabel.textContent = "";
+            
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach((button) => {
+                button.addEventListener('click', function() {
+                    let playerSelection = button.value;
                     let computerSelection = computerPlay();
                     let result = playRound(playerSelection, computerSelection);
+                    const resultLabel = document.querySelector('.result');
+                    resultLabel.textContent = result;
                     console.log(result);
-                    if(result == "You win!") {
-                        myscore += 1;
+
+                    if(result == "You win!") {  //Win
+                        myscore++;
+                        myScoreLabel.textContent = myscore;
+                        console.log("Your score: " + myscore);
+                        console.log("Computer's score: " + computerscore);
+                        console.log("");
+                        if(myscore === 5){
+                            winnerLabel.textContent = "You won the game!";
+                            setTimeout(function () { alert("You win!! \nClick Restart to play a new game"); }, 10);
+                        }
+                    }
+                    else if(result == "You lose! Try again..."){    //Lose
+                        computerscore++;
+                        compScoreLabel.textContent = computerscore;
+                        console.log("Your score: " + myscore);
+                        console.log("Computer's score: " + computerscore);
+                        console.log("");
+                        if(computerscore === 5) {
+                            winnerLabel.textContent = "You lost the game!";
+                            setTimeout(function () { alert("You lose! \nClick Restart to play a new game"); }, 10);
+                        }
+                    }
+                    else{   //Draw 
                         console.log("Your score: " + myscore);
                         console.log("Computer's score: " + computerscore);
                         console.log("");
                     }
-                    else if(result == "You lose! Try again..."){
-                        computerscore += 1;
-                        console.log("Your score: " + myscore);
-                        console.log("Computer's score: " + computerscore);
-                        console.log("");
-                    }
-                    else{
-                        console.log("Your score: " + myscore);
-                        console.log("Computer's score: " + computerscore);
-                        console.log("");
-                    }
-                }
-                if(myscore > computerscore) {
-                    console.log("You win the game!")
-                    return "You win the game!";
-                }
-                else {
-                    console.log("Computer wins the game!")
-                    return "Computer wins the game!";
-                }
+                }); 
+            });
+            
+            function restart() {
+                myscore = 0;
+                computerscore = 0;
+                myScoreLabel.textContent = myscore;
+                compScoreLabel.textContent = computerscore;
+                resultLabel.textContent = "";
+                winnerLabel.textContent = "";
             }
-            game();
-            //document.getElementById("computer-turn").textContent = comp;
         </script>
     </body>
     

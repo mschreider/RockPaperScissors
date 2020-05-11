@@ -1,0 +1,64 @@
+body {
+    background-color: rgb(228, 220, 176);
+}
+
+.heading {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.score {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    letter-spacing: .5em;
+    font-size: 2em;
+}
+
+h1.myScore, h1.compScore{
+    text-align: center;
+    margin: auto 0;
+}
+
+
+.choice {
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    border-radius: 10%;
+    border-color: black;
+    outline: none;
+    background-color: rgb(255,255,255,0);
+    padding: 20px;
+    margin: 20px;
+    transition: 0.5s;
+}
+
+i {
+    font-size: 7em;
+}
+
+button:hover{
+    transform: scale(1.4);
+    border-color: rgb(45, 158, 79);
+    color: rgb(45, 158, 79);
+}
+
+.result {
+    display: flex;
+    justify-content: center;
+}
+
+.winner {
+    display: flex;
+    justify-content: center;
+}
+
+#restartSettings {
+    background-color: black;
+    color: white;
+    display: block;
+    margin: auto;
+}
